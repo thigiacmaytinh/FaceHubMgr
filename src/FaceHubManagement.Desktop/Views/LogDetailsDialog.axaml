@@ -1,0 +1,151 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="FaceHubManagement.Desktop.Views.LogDetailsDialog"
+        Title="Log Details &amp; Diagnostics"
+        Width="900"
+        Height="720"
+        MinWidth="640"
+        MinHeight="480"
+        WindowStartupLocation="CenterOwner"
+        ShowInTaskbar="False">
+  <Grid Margin="24" RowDefinitions="Auto,Auto,*,Auto" RowSpacing="14">
+    <TextBlock Grid.Row="0" Text="Log Details &amp; Diagnostics" FontSize="22" FontWeight="SemiBold"
+               Foreground="{DynamicResource TextPrimaryBrush}" />
+
+    <Grid Grid.Row="1" ColumnDefinitions="*,*" ColumnSpacing="20">
+      <StackPanel>
+        <TextBlock Classes="secondary" Text="Time" FontSize="11" />
+        <TextBlock Text="{Binding TimestampText}" FontFamily="{DynamicResource AppMonoFontFamily}" Margin="0,4,0,0" />
+      </StackPanel>
+      <Grid Grid.Column="1" ColumnDefinitions="*,*" ColumnSpacing="20">
+        <StackPanel>
+          <TextBlock Classes="secondary" Text="Level" FontSize="11" />
+          <TextBlock Text="{Binding Level}" Foreground="{Binding LevelBrush}" FontWeight="SemiBold" Margin="0,4,0,0" />
+        </StackPanel>
+        <StackPanel Grid.Column="1">
+          <TextBlock Classes="secondary" Text="Component" FontSize="11" />
+          <TextBlock Text="{Binding Component}" Margin="0,4,0,0" TextTrimming="CharacterEllipsis" />
+        </StackPanel>
+      </Grid>
+    </Grid>
+
+    <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+      <StackPanel Spacing="16" Margin="0,0,8,0">
+        <StackPanel Spacing="6">
+          <TextBlock Classes="secondary" Text="Original message" FontSize="11" />
+          <Border Classes="card" Padding="12">
+            <TextBox Text="{Binding Message, Mode=OneWay}" IsReadOnly="True" AcceptsReturn="True"
+                     TextWrapping="Wrap" BorderThickness="0" Background="Transparent"
+                     FontFamily="{DynamicResource AppMonoFontFamily}" MinHeight="64" />
+          </Border>
+        </StackPanel>
+
+        <StackPanel IsVisible="{Binding CanCollectDiagnostics}" Spacing="12">
+          <Grid ColumnDefinitions="*,Auto">
+            <StackPanel>
+              <TextBlock Text="Service diagnostics" FontSize="18" FontWeight="SemiBold"
+                         Foreground="{DynamicResource TextPrimaryBrush}" />
+              <TextBlock Classes="secondary"
+                         Text="Collected on demand from the operating system and the managed service."
+                         FontSize="11" Margin="0,2,0,0" />
+            </StackPanel>
+            <TextBlock Grid.Column="1" IsVisible="{Binding HasDiagnostics}"
+                       Text="{Binding DiagnosticsGeneratedAt}" Classes="secondary"
+                       VerticalAlignment="Bottom" />
+          </Grid>
+
+          <Border IsVisible="{Binding IsDiagnosticsLoading}" Classes="card" Padding="14">
+            <StackPanel Spacing="8">
+              <TextBlock Text="Collecting real service diagnostics…" FontWeight="SemiBold" />
+              <TextBlock Classes="secondary"
+                         Text="Checking service state, exit information, port ownership, configuration, and recent service logs."
+                         TextWrapping="Wrap" />
+              <ProgressBar IsIndeterminate="True" Height="5" />
+            </StackPanel>
+          </Border>
+
+          <Border IsVisible="{Binding HasDiagnosticsError}" Classes="card" Padding="14"
+                  BorderBrush="#E5484D">
+            <StackPanel Spacing="5">
+              <TextBlock Text="Diagnostics could not be collected" Foreground="#E5484D" FontWeight="SemiBold" />
+              <TextBlock Text="{Binding DiagnosticsError}" TextWrapping="Wrap" />
+            </StackPanel>
+          </Border>
+
+          <StackPanel IsVisible="{Binding HasDiagnostics}" Spacing="12">
+            <Border Background="#FFF6DD" BorderBrush="#E7B64A" BorderThickness="1"
+                    CornerRadius="9" Padding="14">
+              <StackPanel Spacing="6">
+                <Grid ColumnDefinitions="*,Auto">
+                  <TextBlock Text="Likely cause" FontWeight="SemiBold" Foreground="#8A5A00" />
+                  <TextBlock Grid.Column="1" Text="{Binding ServiceState}" Foreground="#8A5A00" FontWeight="SemiBold" />
+                </Grid>
+                <TextBlock Text="{Binding LikelyCause}" Foreground="#6F4A00" TextWrapping="Wrap" />
+              </StackPanel>
+            </Border>
+
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+              <Border Classes="card" Padding="12" IsVisible="{Binding HasExitCode}">
+                <StackPanel Spacing="6">
+                  <TextBlock Text="Exit information" FontWeight="SemiBold" />
+                  <TextBox Text="{Binding ExitCode, Mode=OneWay}" IsReadOnly="True" AcceptsReturn="True"
+                           TextWrapping="Wrap" BorderThickness="0" Background="Transparent"
+                           FontFamily="{DynamicResource AppMonoFontFamily}" />
+                </StackPanel>
+              </Border>
+              <Border Grid.Column="1" Classes="card" Padding="12" IsVisible="{Binding HasPortConflicts}">
+                <StackPanel Spacing="6">
+                  <TextBlock Text="Port ownership" FontWeight="SemiBold" />
+                  <TextBox Text="{Binding PortConflicts, Mode=OneWay}" IsReadOnly="True" AcceptsReturn="True"
+                           TextWrapping="Wrap" BorderThickness="0" Background="Transparent"
+                           FontFamily="{DynamicResource AppMonoFontFamily}" />
+                </StackPanel>
+              </Border>
+            </Grid>
+
+            <Border Classes="card" Padding="12" IsVisible="{Binding HasConfigurationTest}">
+              <StackPanel Spacing="6">
+                <TextBlock Text="Configuration test" FontWeight="SemiBold" />
+                <TextBox Text="{Binding ConfigurationTest, Mode=OneWay}" IsReadOnly="True" AcceptsReturn="True"
+                         TextWrapping="Wrap" BorderThickness="0" Background="Transparent"
+                         FontFamily="{DynamicResource AppMonoFontFamily}" MaxHeight="180" />
+              </StackPanel>
+            </Border>
+
+            <Border Classes="card" Padding="12" IsVisible="{Binding HasServiceStatus}">
+              <StackPanel Spacing="6">
+                <TextBlock Text="Service state from the operating system" FontWeight="SemiBold" />
+                <TextBox Text="{Binding ServiceStatus, Mode=OneWay}" IsReadOnly="True" AcceptsReturn="True"
+                         TextWrapping="Wrap" BorderThickness="0" Background="Transparent"
+                         FontFamily="{DynamicResource AppMonoFontFamily}" MaxHeight="220" />
+              </StackPanel>
+            </Border>
+
+            <Border Classes="card" Padding="12" IsVisible="{Binding HasApplicationLogs}">
+              <StackPanel Spacing="6">
+                <TextBlock Text="Application error log" FontWeight="SemiBold" />
+                <TextBox Text="{Binding ApplicationLogs, Mode=OneWay}" IsReadOnly="True" AcceptsReturn="True"
+                         TextWrapping="Wrap" BorderThickness="0" Background="Transparent"
+                         FontFamily="{DynamicResource AppMonoFontFamily}" MaxHeight="260" />
+              </StackPanel>
+            </Border>
+
+            <Border Classes="card" Padding="12" IsVisible="{Binding HasRecentServiceLogs}">
+              <StackPanel Spacing="6">
+                <TextBlock Text="Operating-system service logs" FontWeight="SemiBold" />
+                <TextBox Text="{Binding RecentServiceLogs, Mode=OneWay}" IsReadOnly="True" AcceptsReturn="True"
+                         TextWrapping="Wrap" BorderThickness="0" Background="Transparent"
+                         FontFamily="{DynamicResource AppMonoFontFamily}" MaxHeight="300" />
+              </StackPanel>
+            </Border>
+          </StackPanel>
+        </StackPanel>
+      </StackPanel>
+    </ScrollViewer>
+
+    <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="10">
+      <Button Content="Copy diagnostics" Click="Copy_Click" />
+      <Button Classes="primary" Content="Close" Click="Close_Click" />
+    </StackPanel>
+  </Grid>
+</Window>

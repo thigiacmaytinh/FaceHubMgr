@@ -1,0 +1,200 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="FaceHubManagement.Desktop.App"
+             RequestedThemeVariant="Default">
+  <Application.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key="Light">
+          <SolidColorBrush x:Key="PageBackgroundBrush" Color="#F5F7FB" />
+          <SolidColorBrush x:Key="CardBackgroundBrush" Color="#FFFFFF" />
+          <SolidColorBrush x:Key="TextPrimaryBrush" Color="#14213D" />
+          <SolidColorBrush x:Key="TextSecondaryBrush" Color="#60708D" />
+          <SolidColorBrush x:Key="BorderBrushSoft" Color="#DDE5F0" />
+        </ResourceDictionary>
+        <ResourceDictionary x:Key="Dark">
+          <SolidColorBrush x:Key="PageBackgroundBrush" Color="#0F1724" />
+          <SolidColorBrush x:Key="CardBackgroundBrush" Color="#172234" />
+          <SolidColorBrush x:Key="TextPrimaryBrush" Color="#F2F6FC" />
+          <SolidColorBrush x:Key="TextSecondaryBrush" Color="#AAB8CC" />
+          <SolidColorBrush x:Key="BorderBrushSoft" Color="#2A3A50" />
+        </ResourceDictionary>
+        <ResourceDictionary x:Key="Default">
+          <SolidColorBrush x:Key="PageBackgroundBrush" Color="#F5F7FB" />
+          <SolidColorBrush x:Key="CardBackgroundBrush" Color="#FFFFFF" />
+          <SolidColorBrush x:Key="TextPrimaryBrush" Color="#14213D" />
+          <SolidColorBrush x:Key="TextSecondaryBrush" Color="#60708D" />
+          <SolidColorBrush x:Key="BorderBrushSoft" Color="#DDE5F0" />
+        </ResourceDictionary>
+      </ResourceDictionary.ThemeDictionaries>
+      <SolidColorBrush x:Key="SidebarBrush" Color="#162A4A" />
+      <SolidColorBrush x:Key="SidebarHoverBrush" Color="#213B63" />
+      <SolidColorBrush x:Key="SidebarActiveBrush" Color="#294A76" />
+      <SolidColorBrush x:Key="PrimaryBrush" Color="#1778F2" />
+      <SolidColorBrush x:Key="PrimaryHoverBrush" Color="#0E6DDE" />
+      <SolidColorBrush x:Key="PrimaryPressedBrush" Color="#0B5FC4" />
+      <SolidColorBrush x:Key="PrimarySoftBrush" Color="#E8F2FF" />
+      <SolidColorBrush x:Key="SuccessBrush" Color="#16B364" />
+      <SolidColorBrush x:Key="DangerBrush" Color="#E5484D" />
+      <SolidColorBrush x:Key="DangerHoverBrush" Color="#D43C42" />
+      <SolidColorBrush x:Key="DangerPressedBrush" Color="#BE3036" />
+      <SolidColorBrush x:Key="WarningBrush" Color="#D99A1D" />
+      <FontFamily x:Key="AppUiFontFamily">Segoe UI, Ubuntu, Sans</FontFamily>
+      <FontFamily x:Key="AppMonoFontFamily">Consolas, monospace</FontFamily>
+    </ResourceDictionary>
+  </Application.Resources>
+
+  <Application.Styles>
+    <FluentTheme />
+
+    <Style Selector="Window">
+      <Setter Property="FontFamily" Value="{DynamicResource AppUiFontFamily}" />
+      <Setter Property="Background" Value="{DynamicResource PageBackgroundBrush}" />
+    </Style>
+
+    <Style Selector="Button">
+      <Setter Property="Cursor" Value="Hand" />
+    </Style>
+
+    <Style Selector="Border.card">
+      <Setter Property="Background" Value="{DynamicResource CardBackgroundBrush}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource BorderBrushSoft}" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="CornerRadius" Value="10" />
+      <Setter Property="Padding" Value="18" />
+    </Style>
+
+    <Style Selector="Border.metricCard">
+      <Setter Property="Padding" Value="16" />
+      <Setter Property="MinHeight" Value="124" />
+    </Style>
+
+    <Style Selector="Border.groupCard">
+      <Setter Property="ClipToBounds" Value="True" />
+    </Style>
+
+    <Style Selector="Border.logRow">
+      <Setter Property="Background" Value="Transparent" />
+    </Style>
+    <Style Selector="Border.logRow:pointerover">
+      <Setter Property="Background" Value="#0D1778F2" />
+    </Style>
+
+    <!-- Explicit visual states avoid the Fluent default hover overlay changing the intended button colors. -->
+    <Style Selector="Button.primary">
+      <Setter Property="Background" Value="{DynamicResource PrimaryBrush}" />
+      <Setter Property="Foreground" Value="White" />
+      <Setter Property="CornerRadius" Value="7" />
+      <Setter Property="Padding" Value="18,9" />
+      <Setter Property="FontWeight" Value="SemiBold" />
+    </Style>
+    <Style Selector="Button.primary:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="{DynamicResource PrimaryHoverBrush}" />
+      <Setter Property="Foreground" Value="White" />
+    </Style>
+    <Style Selector="Button.primary:pressed /template/ ContentPresenter">
+      <Setter Property="Background" Value="{DynamicResource PrimaryPressedBrush}" />
+      <Setter Property="Foreground" Value="White" />
+    </Style>
+
+    <Style Selector="Button.danger">
+      <Setter Property="Background" Value="{DynamicResource DangerBrush}" />
+      <Setter Property="Foreground" Value="White" />
+      <Setter Property="CornerRadius" Value="7" />
+      <Setter Property="Padding" Value="18,9" />
+      <Setter Property="FontWeight" Value="SemiBold" />
+    </Style>
+    <Style Selector="Button.danger:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="{DynamicResource DangerHoverBrush}" />
+      <Setter Property="Foreground" Value="White" />
+    </Style>
+    <Style Selector="Button.danger:pressed /template/ ContentPresenter">
+      <Setter Property="Background" Value="{DynamicResource DangerPressedBrush}" />
+      <Setter Property="Foreground" Value="White" />
+    </Style>
+
+    <Style Selector="Button.compact">
+      <Setter Property="Padding" Value="12,7" />
+      <Setter Property="FontSize" Value="12" />
+	  <Setter Property="HorizontalContentAlignment" Value="Center" />
+	  <Setter Property="VerticalContentAlignment" Value="Center" />
+    </Style>
+
+    <Style Selector="Button.nav">
+	  <Setter Property="HorizontalAlignment" Value="Stretch" />
+      <Setter Property="HorizontalContentAlignment" Value="Left" />
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="Foreground" Value="#D8E3F5" />
+      <Setter Property="BorderThickness" Value="0" />
+      <Setter Property="CornerRadius" Value="7" />
+      <Setter Property="Padding" Value="14,11" />
+      <Setter Property="Margin" Value="0,3" />
+      <Setter Property="FontSize" Value="15" />
+    </Style>
+    <Style Selector="Button.nav:pointerover">
+      <Setter Property="Foreground" Value="White" />
+    </Style>
+    <Style Selector="Button.nav:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="{DynamicResource SidebarHoverBrush}" />
+      <Setter Property="Foreground" Value="White" />
+    </Style>
+    <Style Selector="Button.nav.active">
+      <Setter Property="Foreground" Value="White" />
+      <Setter Property="FontWeight" Value="SemiBold" />
+    </Style>
+    <Style Selector="Button.nav.active /template/ ContentPresenter">
+      <Setter Property="Background" Value="{DynamicResource SidebarActiveBrush}" />
+      <Setter Property="Foreground" Value="White" />
+    </Style>
+    <Style Selector="Button.nav.active:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="#315785" />
+      <Setter Property="Foreground" Value="White" />
+    </Style>
+
+    <Style Selector="Button.link">
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="Foreground" Value="{DynamicResource PrimaryBrush}" />
+      <Setter Property="BorderThickness" Value="0" />
+      <Setter Property="Padding" Value="8,5" />
+      <Setter Property="CornerRadius" Value="6" />
+    </Style>
+    <Style Selector="Button.link:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="{DynamicResource PrimarySoftBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource PrimaryHoverBrush}" />
+    </Style>
+
+    <Style Selector="Button.toastClose">
+      <Setter Property="Width" Value="28" />
+      <Setter Property="Height" Value="28" />
+      <Setter Property="Padding" Value="0" />
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="Foreground" Value="White" />
+      <Setter Property="BorderThickness" Value="0" />
+      <Setter Property="CornerRadius" Value="6" />
+      <Setter Property="FontSize" Value="18" />
+    </Style>
+    <Style Selector="Button.toastClose:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="#2FFFFFFF" />
+      <Setter Property="Foreground" Value="White" />
+    </Style>
+
+    <Style Selector="TextBlock.pageTitle">
+      <Setter Property="FontSize" Value="27" />
+      <Setter Property="FontWeight" Value="Bold" />
+      <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+    </Style>
+    <Style Selector="TextBlock.sectionTitle">
+      <Setter Property="FontSize" Value="20" />
+      <Setter Property="FontWeight" Value="SemiBold" />
+      <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+    </Style>
+    <Style Selector="TextBlock.secondary">
+      <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}" />
+    </Style>
+    <Style Selector="TextBlock.tableHeader">
+      <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}" />
+      <Setter Property="FontSize" Value="11" />
+      <Setter Property="FontWeight" Value="SemiBold" />
+    </Style>
+  </Application.Styles>
+</Application>

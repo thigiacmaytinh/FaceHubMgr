@@ -1,0 +1,735 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="FaceHubManagement.Desktop.Views.MainWindow"
+        Title="FaceHub Management"
+        Icon="/Assets/favicon.ico"
+        Width="1320"
+        Height="820"
+        MinWidth="900"
+        MinHeight="650"
+        WindowStartupLocation="CenterScreen">
+  <Window.Resources>
+    <StreamGeometry x:Key="IconDashboardGeometry">M 4 10.5 L 12 4 L 20 10.5 V 20 A 1.5 1.5 0 0 1 18.5 21.5 H 14 V 14 H 10 V 21.5 H 5.5 A 1.5 1.5 0 0 1 4 20 Z</StreamGeometry>
+    <StreamGeometry x:Key="IconFirewallGeometry">M 12 2 L 19 5 V 11 C 19 16 15.5 20.5 12 22 C 8.5 20.5 5 16 5 11 V 5 Z</StreamGeometry>
+    <StreamGeometry x:Key="IconSystemInfoGeometry">M 4 5 H 20 A 2 2 0 0 1 22 7 V 15 A 2 2 0 0 1 20 17 H 13 V 19 H 16 V 21 H 8 V 19 H 11 V 17 H 4 A 2 2 0 0 1 2 15 V 7 A 2 2 0 0 1 4 5 Z M 5 8 V 14 H 19 V 8 Z</StreamGeometry>
+    <StreamGeometry x:Key="IconSettingsGeometry">M 12 8.7 A 3.3 3.3 0 1 1 12 15.3 A 3.3 3.3 0 1 1 12 8.7 Z M 12 2 H 13.4 L 14.1 4.3 C 14.6 4.5 15.1 4.7 15.5 4.9 L 17.7 3.9 L 18.7 4.9 L 17.7 7.1 C 18 7.5 18.2 8 18.4 8.5 L 20.8 9.1 V 10.5 L 18.4 11.1 C 18.2 11.6 18 12.1 17.7 12.5 L 18.7 14.7 L 17.7 15.7 L 15.5 14.7 C 15.1 15 14.6 15.2 14.1 15.4 L 13.4 17.8 H 12 L 10.6 15.4 C 10.1 15.2 9.6 15 9.2 14.7 L 7 15.7 L 6 14.7 L 7 12.5 C 6.7 12.1 6.5 11.6 6.3 11.1 L 3.9 10.5 V 9.1 L 6.3 8.5 C 6.5 8 6.7 7.5 7 7.1 L 6 4.9 L 7 3.9 L 9.2 4.9 C 9.6 4.7 10.1 4.5 10.6 4.3 Z</StreamGeometry>
+    <StreamGeometry x:Key="IconRefreshGeometry">M 20 5 V 10 H 15 L 17.4 7.6 C 16 6 14.1 5 12 5 C 8.1 5 4.9 7.7 4.2 11.4 H 2.2 C 3 6.6 7.1 3 12 3 C 14.7 3 17.1 4.1 18.8 6.1 V 5 Z M 4 19 V 14 H 9 L 6.6 16.4 C 8 18 9.9 19 12 19 C 15.9 19 19.1 16.3 19.8 12.6 H 21.8 C 21 17.4 16.9 21 12 21 C 9.3 21 6.9 19.9 5.2 17.9 V 19 Z</StreamGeometry>
+    <StreamGeometry x:Key="IconPlayGeometry">M 8 6 L 18 12 L 8 18 Z</StreamGeometry>
+    <StreamGeometry x:Key="IconStopGeometry">M 7 7 H 17 V 17 H 7 Z</StreamGeometry>
+  </Window.Resources>
+
+  <Grid ColumnDefinitions="220,*">
+    <Border Grid.Column="0" Background="{DynamicResource SidebarBrush}">
+      <Grid RowDefinitions="Auto,*,Auto">
+        <StackPanel Margin="18,22,18,18" Orientation="Horizontal" Spacing="10">
+          <Border Width="38" Height="38" CornerRadius="19" Background="{DynamicResource PrimaryBrush}">
+            <Image Source="/Assets/3d-face-scan-icon-png.png" Width="36" Height="36"
+                   Stretch="Uniform"
+                   HorizontalAlignment="Center" VerticalAlignment="Center" />
+          </Border>
+          <StackPanel VerticalAlignment="Center">
+            <TextBlock Text="FaceHub" Foreground="White" FontSize="17" FontWeight="SemiBold" />
+            <TextBlock Text="Management" Foreground="#AFC0D9" FontSize="12" />
+          </StackPanel>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Margin="16,10,16,0">
+          <Button Classes="nav"
+                  Classes.active="{Binding IsDashboardVisible}"
+                  Command="{Binding NavigateCommand}"
+                  CommandParameter="Dashboard">
+            <StackPanel Orientation="Horizontal" Spacing="12">
+              <PathIcon Data="{StaticResource IconDashboardGeometry}" Width="18" Height="18" Foreground="{Binding $parent[Button].Foreground}" />
+              <TextBlock Text="Dashboard" VerticalAlignment="Center" />
+            </StackPanel>
+          </Button>
+          <Button Classes="nav"
+                  Classes.active="{Binding IsFirewallVisible}"
+                  Command="{Binding NavigateCommand}"
+                  CommandParameter="Firewall">
+            <StackPanel Orientation="Horizontal" Spacing="12">
+              <PathIcon Data="{StaticResource IconFirewallGeometry}" Width="18" Height="18" Foreground="{Binding $parent[Button].Foreground}" />
+              <TextBlock Text="Firewall" VerticalAlignment="Center" />
+            </StackPanel>
+          </Button>
+          <Button Classes="nav"
+                  Classes.active="{Binding IsSystemInfoVisible}"
+                  Command="{Binding NavigateCommand}"
+                  CommandParameter="SystemInfo">
+            <StackPanel Orientation="Horizontal" Spacing="12">
+              <PathIcon Data="{StaticResource IconSystemInfoGeometry}" Width="18" Height="18" Foreground="{Binding $parent[Button].Foreground}" />
+              <TextBlock Text="System Info" VerticalAlignment="Center" />
+            </StackPanel>
+          </Button>
+          <Button Classes="nav"
+                  Classes.active="{Binding IsSettingsVisible}"
+                  Command="{Binding NavigateCommand}"
+                  CommandParameter="Settings">
+            <StackPanel Orientation="Horizontal" Spacing="12">
+              <PathIcon Data="{StaticResource IconSettingsGeometry}" Width="18" Height="18" Foreground="{Binding $parent[Button].Foreground}" />
+              <TextBlock Text="Settings" VerticalAlignment="Center" />
+            </StackPanel>
+          </Button>
+        </StackPanel>
+
+        <Border Grid.Row="2"
+                BorderBrush="#2E4568"
+                BorderThickness="0,1,0,0"
+                Margin="18,0,18,18"
+                Padding="4,16,4,0">
+          <StackPanel Spacing="5">
+            <StackPanel Orientation="Horizontal" Spacing="9">
+              <Ellipse Width="11" Height="11" Fill="{Binding ConnectionBrush}" VerticalAlignment="Center" />
+              <TextBlock Text="{Binding ConnectionText}" Foreground="White" FontSize="12" FontWeight="SemiBold" />
+            </StackPanel>
+            <TextBlock Text="{Binding PlatformText}"
+                       Foreground="#95A9C6"
+                       FontSize="10"
+                       Margin="20,0,0,0"
+                       TextWrapping="Wrap"
+                       MaxWidth="166"
+                       ToolTip.Tip="{Binding PlatformText}" />
+          </StackPanel>
+        </Border>
+      </Grid>
+    </Border>
+
+    <Grid Grid.Column="1" Background="{DynamicResource PageBackgroundBrush}">
+      <!-- Dashboard: only the services and log groups scroll. The page itself stays fixed. -->
+      <Grid IsVisible="{Binding IsDashboardVisible}"
+            Margin="28,24,28,24"
+            RowDefinitions="Auto,Auto,Auto,*"
+            RowSpacing="16">
+        <Grid Grid.Row="0" ColumnDefinitions="*,Auto">
+          <StackPanel>
+            <TextBlock Classes="pageTitle" Text="FaceHub Management" />
+            <TextBlock Classes="secondary"
+                       Text="Manage and monitor Nginx, FaceHub, and MongoDB services"
+                       FontSize="15"
+                       Margin="0,4,0,0" />
+          </StackPanel>
+          <Button Grid.Column="1"
+                  Classes="primary"
+                  Command="{Binding RefreshNowCommand}"
+                  VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal" Spacing="8">
+              <PathIcon Data="{StaticResource IconRefreshGeometry}" Width="15" Height="15" Foreground="White" />
+              <TextBlock Text="Refresh" VerticalAlignment="Center" />
+            </StackPanel>
+          </Button>
+        </Grid>
+
+        <Grid x:Name="ResourceCardsGrid"
+              Grid.Row="1"
+              ColumnDefinitions="*,*,*,*,*"
+              RowDefinitions="Auto"
+              ColumnSpacing="12"
+              RowSpacing="12">
+          <Border x:Name="CpuCard" Grid.Column="0" Classes="card metricCard">
+            <StackPanel Spacing="10">
+              <StackPanel Orientation="Horizontal" Spacing="10">
+                <Border Width="42" Height="42" CornerRadius="9" Background="#DCEEFF">
+                  <TextBlock Text="CPU" Foreground="#1778F2" FontWeight="Bold"
+                             HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Border>
+                <StackPanel VerticalAlignment="Center">
+                  <TextBlock Text="CPU Usage" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}" />
+                  <TextBlock Text="{Binding CpuPercentText}" FontSize="23" FontWeight="Bold" Foreground="{DynamicResource TextPrimaryBrush}" />
+                </StackPanel>
+              </StackPanel>
+              <ProgressBar Minimum="0" Maximum="100" Value="{Binding CpuPercent}" Height="7" Foreground="#23B26D" />
+              <TextBlock Classes="secondary" Text="{Binding CpuDetail}" FontSize="12" TextTrimming="CharacterEllipsis" />
+            </StackPanel>
+          </Border>
+
+          <Border x:Name="RamCard" Grid.Column="1" Classes="card metricCard">
+            <StackPanel Spacing="10">
+              <StackPanel Orientation="Horizontal" Spacing="10">
+                <Border Width="42" Height="42" CornerRadius="9" Background="#DCEEFF">
+                  <TextBlock Text="RAM" Foreground="#1778F2" FontWeight="Bold"
+                             HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Border>
+                <StackPanel VerticalAlignment="Center">
+                  <TextBlock Text="RAM Usage" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}" />
+                  <TextBlock Text="{Binding RamPercentText}" FontSize="23" FontWeight="Bold" Foreground="{DynamicResource TextPrimaryBrush}" />
+                </StackPanel>
+              </StackPanel>
+              <ProgressBar Minimum="0" Maximum="100" Value="{Binding RamPercent}" Height="7" Foreground="#1778F2" />
+              <TextBlock Classes="secondary" Text="{Binding RamDetail}" FontSize="12" TextTrimming="CharacterEllipsis" />
+            </StackPanel>
+          </Border>
+
+          <Border x:Name="DiskCard" Grid.Column="2" Classes="card metricCard">
+            <StackPanel Spacing="10">
+              <StackPanel Orientation="Horizontal" Spacing="10">
+                <Border Width="42" Height="42" CornerRadius="9" Background="#F2EAFE">
+                  <TextBlock Text="DISK" Foreground="#7C3AED" FontWeight="Bold" FontSize="10"
+                             HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Border>
+                <StackPanel VerticalAlignment="Center">
+                  <TextBlock Text="Disk Usage" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}" />
+                  <TextBlock Text="{Binding DiskPercentText}" FontSize="23" FontWeight="Bold" Foreground="{DynamicResource TextPrimaryBrush}" />
+                </StackPanel>
+              </StackPanel>
+              <ProgressBar Minimum="0" Maximum="100" Value="{Binding DiskPercent}" Height="7" Foreground="#7C3AED" />
+              <TextBlock Classes="secondary" Text="{Binding DiskDetail}" FontSize="11"
+                         TextTrimming="CharacterEllipsis" ToolTip.Tip="{Binding DiskDetail}" />
+            </StackPanel>
+          </Border>
+
+          <Border x:Name="CudaCard" Grid.Column="3" Classes="card metricCard">
+            <StackPanel Spacing="10">
+              <StackPanel Orientation="Horizontal" Spacing="10">
+                <Border Width="42" Height="42" CornerRadius="9" Background="#FFF0DC">
+                  <TextBlock Text="CUDA" Foreground="#D97706" FontWeight="Bold" FontSize="10"
+                             HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Border>
+                <StackPanel VerticalAlignment="Center">
+                  <TextBlock Text="CUDA Compute" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}" />
+                  <TextBlock Text="{Binding CudaPercentText}" FontSize="23" FontWeight="Bold" Foreground="{DynamicResource TextPrimaryBrush}" />
+                </StackPanel>
+              </StackPanel>
+              <ProgressBar Minimum="0" Maximum="100" Value="{Binding CudaPercent}" Height="7" Foreground="#D97706" />
+              <TextBlock Classes="secondary" Text="{Binding CudaDetail}" FontSize="11"
+                         TextTrimming="CharacterEllipsis" ToolTip.Tip="{Binding CudaDetail}" />
+            </StackPanel>
+          </Border>
+
+          <Border x:Name="VramCard" Grid.Column="4" Classes="card metricCard">
+            <StackPanel Spacing="10">
+              <StackPanel Orientation="Horizontal" Spacing="10">
+                <Border Width="42" Height="42" CornerRadius="9" Background="#DDF8F4">
+                  <TextBlock Text="VRAM" Foreground="#14A89D" FontWeight="Bold" FontSize="10"
+                             HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Border>
+                <StackPanel VerticalAlignment="Center">
+                  <TextBlock Text="VRAM Usage" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}" />
+                  <TextBlock Text="{Binding VramPercentText}" FontSize="23" FontWeight="Bold" Foreground="{DynamicResource TextPrimaryBrush}" />
+                </StackPanel>
+              </StackPanel>
+              <ProgressBar Minimum="0" Maximum="100" Value="{Binding VramPercent}" Height="7" Foreground="#14B8A6" />
+              <TextBlock Classes="secondary" Text="{Binding VramDetail}" FontSize="11"
+                         TextTrimming="CharacterEllipsis" ToolTip.Tip="{Binding VramDetail}" />
+            </StackPanel>
+          </Border>
+        </Grid>
+
+        <!-- Services use a compact table-style layout (Design D) while preserving the existing action buttons. -->
+        <Border Grid.Row="2" Classes="card groupCard" Padding="0" MaxHeight="300">
+          <Grid RowDefinitions="Auto,Auto,*">
+            <Border BorderBrush="{DynamicResource BorderBrushSoft}" BorderThickness="0,0,0,1" Padding="18,12">
+              <Grid ColumnDefinitions="*,Auto">
+                <StackPanel>
+                  <TextBlock Text="Services" FontSize="18" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}" />
+                  <TextBlock Classes="secondary" Text="Managed service status and controls" FontSize="13" Margin="0,2,0,0" />
+                </StackPanel>
+              </Grid>
+            </Border>
+
+            <Border Grid.Row="1"
+                    Background="#081778F2"
+                    BorderBrush="{DynamicResource BorderBrushSoft}"
+                    BorderThickness="0,0,0,1"
+                    Padding="18,9">
+              <Grid ColumnDefinitions="4.2*,1.2*,0.9*,0.8*,1.0*,1.6*" ColumnSpacing="10">
+                <TextBlock Grid.Column="0" Classes="tableHeader" Text="SERVICE" VerticalAlignment="Center" />
+                <TextBlock Grid.Column="1" Classes="tableHeader" Text="STATUS" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <TextBlock Grid.Column="2" Classes="tableHeader" Text="PORTS" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <TextBlock Grid.Column="3" Classes="tableHeader" Text="PID" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <TextBlock Grid.Column="4" Classes="tableHeader" Text="UPTIME" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <TextBlock Grid.Column="5" Classes="tableHeader" Text="ACTIONS" HorizontalAlignment="Center" VerticalAlignment="Center" />
+              </Grid>
+            </Border>
+
+            <ScrollViewer Grid.Row="2"
+                          VerticalScrollBarVisibility="Auto"
+                          HorizontalScrollBarVisibility="Disabled">
+              <ItemsControl ItemsSource="{Binding Services}">
+                <ItemsControl.ItemTemplate>
+                  <DataTemplate>
+                    <Border Padding="18,10"
+                            BorderBrush="{DynamicResource BorderBrushSoft}"
+                            BorderThickness="0,0,0,1">
+                      <Grid ColumnDefinitions="4.2*,1.2*,0.9*,0.8*,1.0*,1.6*" ColumnSpacing="10">
+                        <StackPanel Grid.Column="0"
+                                    Orientation="Horizontal"
+                                    Spacing="12"
+                                    VerticalAlignment="Center"
+                                    ToolTip.Tip="{Binding Description}">
+                          <Border Width="36" Height="36" CornerRadius="8"
+                                  Background="{Binding IconBackground}">
+                            <PathIcon Data="{Binding IconPathData}" Foreground="White" Width="18" Height="18"
+                                      HorizontalAlignment="Center" VerticalAlignment="Center" />
+                          </Border>
+                          <StackPanel VerticalAlignment="Center" Spacing="2">
+                            <TextBlock Text="{Binding Name}" FontSize="17" FontWeight="SemiBold"
+                                       Foreground="{DynamicResource TextPrimaryBrush}"
+                                       VerticalAlignment="Center" />
+                            <TextBlock IsVisible="{Binding HasDetail}"
+                                       Text="{Binding Detail}"
+                                       Classes="secondary"
+                                       FontSize="11"
+                                       TextTrimming="CharacterEllipsis"
+                                       MaxWidth="320"
+                                       ToolTip.Tip="{Binding Detail}" />
+                          </StackPanel>
+                        </StackPanel>
+
+                        <Border Grid.Column="1"
+                                Background="{Binding StatusBackgroundBrush}"
+                                CornerRadius="12"
+                                Width="98"
+                                Padding="9,4"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center">
+                          <StackPanel Orientation="Horizontal" Spacing="6" HorizontalAlignment="Center">
+                            <Ellipse Width="7" Height="7" Fill="{Binding StatusBrush}" VerticalAlignment="Center" />
+                            <TextBlock Text="{Binding StateText}" Foreground="{Binding StatusBrush}"
+                                       FontWeight="SemiBold" FontSize="11" VerticalAlignment="Center" />
+                          </StackPanel>
+                        </Border>
+
+                        <TextBlock Grid.Column="2" Text="{Binding PortText}"
+                                   Foreground="{DynamicResource TextPrimaryBrush}"
+                                   FontSize="13" FontWeight="SemiBold"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   TextTrimming="CharacterEllipsis"
+                                   ToolTip.Tip="{Binding PortText}" />
+
+                        <TextBlock Grid.Column="3" Text="{Binding PidText}"
+                                   Foreground="{DynamicResource TextPrimaryBrush}"
+                                   FontSize="13" FontWeight="SemiBold"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center" />
+
+                        <TextBlock Grid.Column="4" Text="{Binding UptimeText}"
+                                   Foreground="{DynamicResource TextPrimaryBrush}"
+                                   FontSize="13" FontWeight="SemiBold"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center" />
+
+                        <StackPanel Grid.Column="5"
+                                    Orientation="Horizontal"
+                                    Spacing="8"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center">
+                          <Button IsVisible="{Binding ShowStart}" IsEnabled="{Binding CanInteract}"
+                                  Classes="primary compact" Command="{Binding StartCommand}">
+                            <StackPanel Orientation="Horizontal" Spacing="7">
+                              <PathIcon Data="{StaticResource IconPlayGeometry}" Width="12" Height="12" Foreground="White" />
+                              <TextBlock Text="Start" VerticalAlignment="Center" />
+                            </StackPanel>
+                          </Button>
+                          <Button IsVisible="{Binding ShowRestart}" IsEnabled="{Binding CanInteract}"
+                                  Classes="primary compact" Command="{Binding RestartCommand}">
+                            <StackPanel Orientation="Horizontal" Spacing="7">
+                              <PathIcon Data="{StaticResource IconRefreshGeometry}" Width="12" Height="12" Foreground="White" />
+                              <TextBlock Text="Restart" VerticalAlignment="Center" />
+                            </StackPanel>
+                          </Button>
+                          <Button IsVisible="{Binding ShowStop}" IsEnabled="{Binding CanInteract}"
+                                  Classes="danger compact" Command="{Binding StopCommand}">
+                            <StackPanel Orientation="Horizontal" Spacing="7">
+                              <PathIcon Data="{StaticResource IconStopGeometry}" Width="11" Height="11" Foreground="White" />
+                              <TextBlock Text="Stop" VerticalAlignment="Center" />
+                            </StackPanel>
+                          </Button>
+                        </StackPanel>
+                      </Grid>
+                    </Border>
+                  </DataTemplate>
+                </ItemsControl.ItemTemplate>
+              </ItemsControl>
+            </ScrollViewer>
+          </Grid>
+        </Border>
+
+        <!-- Recent logs are also bounded and scroll independently. -->
+        <Border Grid.Row="3" Classes="card groupCard" Padding="0" MinHeight="100">
+          <Grid RowDefinitions="Auto,*">
+            <Border BorderBrush="{DynamicResource BorderBrushSoft}" BorderThickness="0,0,0,1" Padding="18,11">
+              <Grid ColumnDefinitions="*,Auto">
+                <TextBlock Text="Recent Logs" FontSize="16" FontWeight="SemiBold"
+                           Foreground="{DynamicResource TextPrimaryBrush}" VerticalAlignment="Center" />
+                <Button Grid.Column="1" Classes="link" Content="View all logs" Command="{Binding ShowAllLogsCommand}" />
+              </Grid>
+            </Border>
+            <ScrollViewer Grid.Row="1"
+                          VerticalScrollBarVisibility="Auto"
+                          HorizontalScrollBarVisibility="Disabled">
+              <ItemsControl ItemsSource="{Binding RecentLogs}">
+                <ItemsControl.ItemTemplate>
+                  <DataTemplate>
+                    <Border Classes="logRow" DoubleTapped="LogRow_DoubleTapped" ToolTip.Tip="Double-click to inspect the log and collect service diagnostics">
+                      <Grid ColumnDefinitions="145,58,95,*" Margin="16,5">
+                        <TextBlock Grid.Column="0" Text="{Binding TimestampText}"
+                                   Foreground="{DynamicResource TextSecondaryBrush}" FontFamily="{DynamicResource AppMonoFontFamily}" FontSize="12" />
+                        <TextBlock Grid.Column="1" Text="{Binding Level}" Foreground="{Binding LevelBrush}"
+                                   FontWeight="SemiBold" FontFamily="{DynamicResource AppMonoFontFamily}" FontSize="12" />
+                        <TextBlock Grid.Column="2" Text="{Binding Component}"
+                                   Foreground="{DynamicResource TextSecondaryBrush}" FontFamily="{DynamicResource AppMonoFontFamily}" FontSize="12"
+                                   TextTrimming="CharacterEllipsis" />
+                        <TextBlock Grid.Column="3" Text="{Binding Message}"
+                                   Foreground="{DynamicResource TextPrimaryBrush}" FontFamily="{DynamicResource AppMonoFontFamily}" FontSize="12"
+                                   TextTrimming="CharacterEllipsis" />
+                      </Grid>
+                    </Border>
+                  </DataTemplate>
+                </ItemsControl.ItemTemplate>
+              </ItemsControl>
+            </ScrollViewer>
+          </Grid>
+        </Border>
+      </Grid>
+
+      <!-- Firewall -->
+      <Grid IsVisible="{Binding IsFirewallVisible}"
+            Margin="28,24,28,24"
+            RowDefinitions="Auto,Auto,*"
+            RowSpacing="18">
+        <Grid Grid.Row="0" ColumnDefinitions="*,Auto">
+          <StackPanel>
+            <TextBlock Classes="pageTitle" Text="Firewall" />
+            <TextBlock Classes="secondary"
+                       Text="Manage the system firewall and inbound TCP access without using the terminal"
+                       FontSize="15" Margin="0,4,0,0" />
+          </StackPanel>
+          <Button Grid.Column="1" Classes="primary"
+                  Command="{Binding RefreshNowCommand}" VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal" Spacing="8">
+              <PathIcon Data="{StaticResource IconRefreshGeometry}" Width="15" Height="15" Foreground="White" />
+              <TextBlock Text="Refresh" VerticalAlignment="Center" />
+            </StackPanel>
+          </Button>
+        </Grid>
+
+        <Border Grid.Row="1" Classes="card">
+          <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,Auto" ColumnSpacing="16" RowSpacing="12">
+            <Border Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Width="54" Height="54" CornerRadius="12"
+                    Background="{Binding FirewallStatusBackgroundBrush}" VerticalAlignment="Top">
+              <PathIcon Data="{StaticResource IconFirewallGeometry}" Foreground="{Binding FirewallStatusBrush}" Width="24" Height="24"
+                        HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </Border>
+
+            <StackPanel Grid.Row="0" Grid.Column="1" Spacing="4">
+              <StackPanel Orientation="Horizontal" Spacing="10">
+                <TextBlock Text="{Binding FirewallProviderName}" FontSize="18" FontWeight="SemiBold"
+                           Foreground="{DynamicResource TextPrimaryBrush}" />
+                <Border Background="{Binding FirewallStatusBackgroundBrush}" CornerRadius="12" Padding="9,3">
+                  <StackPanel Orientation="Horizontal" Spacing="6">
+                    <Ellipse Width="7" Height="7" Fill="{Binding FirewallStatusBrush}" VerticalAlignment="Center" />
+                    <TextBlock Text="{Binding FirewallStatusText}" Foreground="{Binding FirewallStatusBrush}"
+                               FontSize="11" FontWeight="SemiBold" />
+                  </StackPanel>
+                </Border>
+              </StackPanel>
+              <TextBlock Text="{Binding FirewallStatusDetail}" Classes="secondary" TextWrapping="Wrap" />
+            </StackPanel>
+
+            <StackPanel Grid.Row="0" Grid.Column="2" VerticalAlignment="Top" Spacing="8">
+              <Button IsVisible="{Binding ShowEnableFirewall}" IsEnabled="{Binding CanManageFirewall}"
+                      Classes="primary" Content="Enable Firewall" Click="EnableFirewall_Click" />
+              <Button IsVisible="{Binding ShowDisableFirewall}" IsEnabled="{Binding CanManageFirewall}"
+                      Classes="danger" Content="Disable Firewall" Click="DisableFirewall_Click" />
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Spacing="4">
+              <TextBlock Classes="secondary" Text="Profiles" FontSize="10" />
+              <TextBlock Text="{Binding FirewallProfilesText}" Foreground="{DynamicResource TextPrimaryBrush}"
+                         FontSize="12" TextWrapping="Wrap" />
+            </StackPanel>
+          </Grid>
+        </Border>
+
+        <Border Grid.Row="2" Classes="card groupCard" Padding="0" MinHeight="180">
+          <Grid RowDefinitions="Auto,Auto,*">
+            <Border Grid.Row="0" BorderBrush="{DynamicResource BorderBrushSoft}" BorderThickness="0,0,0,1" Padding="18,11">
+              <Grid ColumnDefinitions="*,Auto">
+                <StackPanel>
+                  <TextBlock Text="Firewall Ports" FontSize="16" FontWeight="SemiBold"
+                             Foreground="{DynamicResource TextPrimaryBrush}" />
+                  <TextBlock Classes="secondary" Text="Shows tracked ports plus existing system UFW TCP rules. Allow/Deny changes effective access; Docker-published ports are handled automatically."
+                             FontSize="11" Margin="0,2,0,0" />
+                </StackPanel>
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                  <Button Classes="primary compact" Content="Allow All" Click="EnableAllFirewallPorts_Click"
+                          ToolTip.Tip="Allow effective inbound access for every listed TCP port." />
+                  <Button Classes="danger compact" Content="Deny All" Click="DisableAllFirewallPorts_Click"
+                          ToolTip.Tip="Deny effective inbound access for every listed TCP port, including ports currently allowed by system rules." />
+                  <Button Classes="primary compact" Content="+  Add Port" Click="AddFirewallPort_Click" />
+                </StackPanel>
+              </Grid>
+            </Border>
+
+            <Border Grid.Row="1" BorderBrush="{DynamicResource BorderBrushSoft}" BorderThickness="0,0,0,1" Padding="18,9">
+              <Grid ColumnDefinitions="90,*,165,120">
+                <TextBlock Grid.Column="0" Classes="tableHeader" Text="PORT" VerticalAlignment="Center" />
+                <TextBlock Grid.Column="1" Classes="tableHeader" Text="NAME" VerticalAlignment="Center" />
+                <TextBlock Grid.Column="2" Classes="tableHeader" Text="FIREWALL"
+                           HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <TextBlock Grid.Column="3" Classes="tableHeader" Text="ACTION"
+                           HorizontalAlignment="Center" VerticalAlignment="Center" />
+              </Grid>
+            </Border>
+
+            <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+              <ItemsControl ItemsSource="{Binding FirewallPorts}">
+                <ItemsControl.ItemTemplate>
+                  <DataTemplate>
+                    <Border Padding="18,11" BorderBrush="{DynamicResource BorderBrushSoft}" BorderThickness="0,0,0,1">
+                      <Grid ColumnDefinitions="90,*,165,120">
+                        <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="4" VerticalAlignment="Center">
+                          <TextBlock Text="{Binding PortText}" FontSize="16" FontWeight="SemiBold"
+                                     Foreground="{DynamicResource TextPrimaryBrush}" VerticalAlignment="Center" />
+                          <TextBlock Text="/TCP" Classes="secondary" FontSize="10"
+                                     VerticalAlignment="Center" Margin="0,4,0,0" />
+                        </StackPanel>
+
+                        <TextBlock Grid.Column="1" Text="{Binding Name}" VerticalAlignment="Center"
+                                   Foreground="{DynamicResource TextPrimaryBrush}" TextTrimming="CharacterEllipsis"
+                                   ToolTip.Tip="{Binding Name}" />
+
+                        <Border Grid.Column="2" Background="{Binding StatusBackgroundBrush}" CornerRadius="12"
+                                Width="132" Padding="9,4" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                ToolTip.Tip="{Binding StatusMessage}">
+                          <StackPanel Orientation="Horizontal" Spacing="6" HorizontalAlignment="Center">
+                            <Ellipse Width="7" Height="7" Fill="{Binding StatusBrush}" VerticalAlignment="Center" />
+                            <TextBlock Text="{Binding StateText}" Foreground="{Binding StatusBrush}"
+                                       FontWeight="SemiBold" FontSize="11" VerticalAlignment="Center" />
+                          </StackPanel>
+                        </Border>
+
+                        <Grid Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center">
+                          <Button IsVisible="{Binding ShowEnable}" IsEnabled="{Binding CanInteract}"
+                                  Classes="primary compact" Content="Allow" Command="{Binding ToggleCommand}" MinWidth="82"
+                                  ToolTip.Tip="Allow effective inbound TCP access for this port." />
+                          <Button IsVisible="{Binding ShowDisable}" IsEnabled="{Binding CanInteract}"
+                                  Classes="danger compact" Content="Deny" Command="{Binding ToggleCommand}" MinWidth="82"
+                                  ToolTip.Tip="Block effective inbound TCP access for this port. Existing system UFW rules remain preserved for audit and recovery." />
+                          <Button IsVisible="{Binding ShowUnavailable}" IsEnabled="False" Content="Unavailable" MinWidth="82"
+                                  ToolTip.Tip="{Binding StatusMessage}" />
+                        </Grid>
+                      </Grid>
+                    </Border>
+                  </DataTemplate>
+                </ItemsControl.ItemTemplate>
+              </ItemsControl>
+            </ScrollViewer>
+          </Grid>
+        </Border>
+      </Grid>
+
+      <!-- System Info -->
+      <ScrollViewer IsVisible="{Binding IsSystemInfoVisible}" HorizontalScrollBarVisibility="Disabled">
+        <StackPanel Margin="28,24,28,30" Spacing="20">
+          <StackPanel>
+            <TextBlock Classes="pageTitle" Text="System Info" />
+            <TextBlock Classes="secondary" Text="Host, runtime, hardware, and network information"
+                       FontSize="15" Margin="0,4,0,0" />
+          </StackPanel>
+          <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,Auto,Auto" ColumnSpacing="14" RowSpacing="14">
+            <Border Grid.Row="0" Grid.Column="0" Classes="card">
+              <StackPanel><TextBlock Classes="secondary" Text="Machine"/><TextBlock Text="{Binding MachineName}" FontSize="17" FontWeight="SemiBold" Margin="0,5,0,0" TextWrapping="Wrap"/></StackPanel>
+            </Border>
+            <Border Grid.Row="0" Grid.Column="1" Classes="card">
+              <StackPanel><TextBlock Classes="secondary" Text="Operating System"/><TextBlock Text="{Binding OperatingSystem}" FontSize="17" FontWeight="SemiBold" Margin="0,5,0,0" TextWrapping="Wrap"/></StackPanel>
+            </Border>
+            <Border Grid.Row="1" Grid.Column="0" Classes="card">
+              <StackPanel><TextBlock Classes="secondary" Text="CPU"/><TextBlock Text="{Binding CpuName}" FontSize="17" FontWeight="SemiBold" Margin="0,5,0,0" TextWrapping="Wrap"/></StackPanel>
+            </Border>
+            <Border Grid.Row="1" Grid.Column="1" Classes="card">
+              <StackPanel><TextBlock Classes="secondary" Text="Architecture"/><TextBlock Text="{Binding Architecture}" FontSize="17" FontWeight="SemiBold" Margin="0,5,0,0" TextWrapping="Wrap"/></StackPanel>
+            </Border>
+            <Border Grid.Row="2" Grid.Column="0" Classes="card">
+              <StackPanel><TextBlock Classes="secondary" Text=".NET Runtime"/><TextBlock Text="{Binding Framework}" FontSize="17" FontWeight="SemiBold" Margin="0,5,0,0" TextWrapping="Wrap"/></StackPanel>
+            </Border>
+            <Border Grid.Row="2" Grid.Column="1" Classes="card">
+              <StackPanel><TextBlock Classes="secondary" Text="System Uptime"/><TextBlock Text="{Binding SystemUptime}" FontSize="17" FontWeight="SemiBold" Margin="0,5,0,0" TextWrapping="Wrap"/></StackPanel>
+            </Border>
+            <Border Grid.Row="3" Grid.Column="0" Classes="card">
+              <StackPanel><TextBlock Classes="secondary" Text="NVIDIA GPU"/><TextBlock Text="{Binding GpuName}" FontSize="17" FontWeight="SemiBold" Margin="0,5,0,0" TextWrapping="Wrap"/><TextBlock Classes="secondary" Text="Driver" Margin="0,10,0,0"/><TextBlock Text="{Binding DriverVersion}"/></StackPanel>
+            </Border>
+            <Border Grid.Row="3" Grid.Column="1" Classes="card">
+              <StackPanel><TextBlock Classes="secondary" Text="CUDA Driver API"/><TextBlock Text="{Binding CudaVersion}" FontSize="17" FontWeight="SemiBold" Margin="0,5,0,0"/><TextBlock Classes="secondary" Text="Data source: NVIDIA NVML" Margin="0,10,0,0"/></StackPanel>
+            </Border>
+          </Grid>
+
+          <Border Classes="card groupCard" Padding="0">
+            <Grid RowDefinitions="Auto,Auto,*">
+              <Border BorderBrush="{DynamicResource BorderBrushSoft}" BorderThickness="0,0,0,1" Padding="18,14">
+                <StackPanel>
+                  <TextBlock Text="Network Information" FontSize="18" FontWeight="SemiBold"
+                             Foreground="{DynamicResource TextPrimaryBrush}" />
+                  <TextBlock Classes="secondary" Text="Active IPv4 interfaces and DNS configuration" FontSize="12" Margin="0,3,0,0" />
+                </StackPanel>
+              </Border>
+
+              <Border Grid.Row="1" Background="#081778F2" BorderBrush="{DynamicResource BorderBrushSoft}"
+                      BorderThickness="0,0,0,1" Padding="14,10">
+                <Grid ColumnDefinitions="55,1.2*,1.2*,1.2*,1.35*,1.35*" ColumnSpacing="12">
+                  <TextBlock Grid.Column="0" Text="No" FontWeight="SemiBold" Foreground="{DynamicResource TextSecondaryBrush}" />
+                  <TextBlock Grid.Column="1" Text="IP Address" FontWeight="SemiBold" Foreground="{DynamicResource TextSecondaryBrush}" />
+                  <TextBlock Grid.Column="2" Text="Gateway" FontWeight="SemiBold" Foreground="{DynamicResource TextSecondaryBrush}" />
+                  <TextBlock Grid.Column="3" Text="Subnet" FontWeight="SemiBold" Foreground="{DynamicResource TextSecondaryBrush}" />
+                  <TextBlock Grid.Column="4" Text="Preferred DNS server" FontWeight="SemiBold" Foreground="{DynamicResource TextSecondaryBrush}" />
+                  <TextBlock Grid.Column="5" Text="Alternate DNS server" FontWeight="SemiBold" Foreground="{DynamicResource TextSecondaryBrush}" />
+                </Grid>
+              </Border>
+
+              <ItemsControl Grid.Row="2" ItemsSource="{Binding NetworkInterfaces}">
+                <ItemsControl.ItemTemplate>
+                  <DataTemplate>
+                    <Border BorderBrush="{DynamicResource BorderBrushSoft}" BorderThickness="0,0,0,1" Padding="14,11">
+                      <Grid ColumnDefinitions="55,1.2*,1.2*,1.2*,1.35*,1.35*" ColumnSpacing="12">
+                        <TextBlock Grid.Column="0" Text="{Binding Index}" Foreground="{DynamicResource TextPrimaryBrush}" />
+                        <TextBlock Grid.Column="1" Text="{Binding IpAddress}" Foreground="{DynamicResource TextPrimaryBrush}" TextTrimming="CharacterEllipsis" ToolTip.Tip="{Binding IpAddress}" />
+                        <TextBlock Grid.Column="2" Text="{Binding Gateway}" Foreground="{DynamicResource TextPrimaryBrush}" TextTrimming="CharacterEllipsis" ToolTip.Tip="{Binding Gateway}" />
+                        <TextBlock Grid.Column="3" Text="{Binding Subnet}" Foreground="{DynamicResource TextPrimaryBrush}" TextTrimming="CharacterEllipsis" ToolTip.Tip="{Binding Subnet}" />
+                        <TextBlock Grid.Column="4" Text="{Binding PrimaryDns}" Foreground="{DynamicResource TextPrimaryBrush}" TextTrimming="CharacterEllipsis" ToolTip.Tip="{Binding PrimaryDns}" />
+                        <TextBlock Grid.Column="5" Text="{Binding SecondaryDns}" Foreground="{DynamicResource TextPrimaryBrush}" TextTrimming="CharacterEllipsis" ToolTip.Tip="{Binding SecondaryDns}" />
+                      </Grid>
+                    </Border>
+                  </DataTemplate>
+                </ItemsControl.ItemTemplate>
+              </ItemsControl>
+            </Grid>
+          </Border>
+        </StackPanel>
+      </ScrollViewer>
+
+      <!-- Settings -->
+      <ScrollViewer IsVisible="{Binding IsSettingsVisible}" HorizontalScrollBarVisibility="Disabled">
+        <StackPanel Margin="28,24,28,30" Spacing="20" MaxWidth="800" HorizontalAlignment="Left">
+          <StackPanel>
+            <TextBlock Classes="pageTitle" Text="Settings" />
+            <TextBlock Classes="secondary" Text="Refresh intervals and local agent endpoint"
+                       FontSize="15" Margin="0,4,0,0" />
+          </StackPanel>
+          <!--
+            Theme selection is intentionally disabled. Keep this markup commented so it can be restored
+            later without exposing an unnecessary setting in the current management UI.
+          <Border Classes="card">
+            <StackPanel Spacing="16">
+              <TextBlock Text="Appearance" FontSize="17" FontWeight="SemiBold" />
+              <Grid ColumnDefinitions="220,*">
+                <TextBlock Text="Theme" VerticalAlignment="Center" />
+                <ComboBox Grid.Column="1" ItemsSource="{Binding ThemeOptions}"
+                          SelectedItem="{Binding SelectedTheme, Mode=TwoWay}"
+                          Width="180" HorizontalAlignment="Left" />
+              </Grid>
+            </StackPanel>
+          </Border>
+          -->
+          <Border Classes="card">
+            <StackPanel Spacing="16">
+              <TextBlock Text="Refresh intervals" FontSize="17" FontWeight="SemiBold" />
+              <Grid ColumnDefinitions="220,*,90" RowDefinitions="Auto,Auto,Auto" RowSpacing="16">
+                <TextBlock Grid.Row="0" Text="CPU / RAM / CUDA / VRAM" VerticalAlignment="Center" />
+                <Slider Grid.Row="0" Grid.Column="1" Minimum="500" Maximum="5000" TickFrequency="500"
+                        IsSnapToTickEnabled="True" Value="{Binding ResourceRefreshMs, Mode=TwoWay}" />
+                <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding ResourceRefreshLabel}"
+                           HorizontalAlignment="Right" VerticalAlignment="Center" />
+                <TextBlock Grid.Row="1" Text="Services / firewall" VerticalAlignment="Center" />
+                <Slider Grid.Row="1" Grid.Column="1" Minimum="1000" Maximum="10000" TickFrequency="1000"
+                        IsSnapToTickEnabled="True" Value="{Binding ServiceRefreshMs, Mode=TwoWay}" />
+                <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding ServiceRefreshLabel}"
+                           HorizontalAlignment="Right" VerticalAlignment="Center" />
+                <TextBlock Grid.Row="2" Text="Logs" VerticalAlignment="Center" />
+                <Slider Grid.Row="2" Grid.Column="1" Minimum="1000" Maximum="10000" TickFrequency="1000"
+                        IsSnapToTickEnabled="True" Value="{Binding LogRefreshMs, Mode=TwoWay}" />
+                <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding LogRefreshLabel}"
+                           HorizontalAlignment="Right" VerticalAlignment="Center" />
+              </Grid>
+            </StackPanel>
+          </Border>
+          <Border Classes="card">
+            <StackPanel Spacing="14">
+              <TextBlock Text="Management Agent" FontSize="17" FontWeight="SemiBold" />
+              <TextBlock Classes="secondary"
+                         Text="The desktop app connects only to a local privileged agent. Service names are allow-listed in the administrator configuration."
+                         TextWrapping="Wrap" />
+              <Grid ColumnDefinitions="220,*" RowDefinitions="Auto,Auto" RowSpacing="12">
+                <TextBlock Grid.Row="0" Text="Windows named pipe" VerticalAlignment="Center" />
+                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding WindowsPipeName, Mode=TwoWay}" />
+                <TextBlock Grid.Row="1" Text="Linux Unix socket" VerticalAlignment="Center" />
+                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding LinuxSocketPath, Mode=TwoWay}" />
+              </Grid>
+            </StackPanel>
+          </Border>
+          <StackPanel Orientation="Horizontal" Spacing="10">
+            <Button Classes="primary" Content="Save settings" Command="{Binding SaveSettingsCommand}" />
+            <Button Content="Test / refresh now" Command="{Binding RefreshNowCommand}" />
+          </StackPanel>
+        </StackPanel>
+      </ScrollViewer>
+
+      <!-- Full logs: the list itself owns scrolling; the whole page does not move. -->
+      <Grid IsVisible="{Binding IsLogsVisible}"
+            Margin="28,24,28,24"
+            RowDefinitions="Auto,*"
+            RowSpacing="18">
+        <Grid Grid.Row="0" ColumnDefinitions="*,Auto">
+          <StackPanel>
+            <TextBlock Classes="pageTitle" Text="Management Logs" />
+            <TextBlock Classes="secondary"
+                       Text="Recent management-agent lifecycle and service actions"
+                       FontSize="15" Margin="0,4,0,0" />
+          </StackPanel>
+          <Button Grid.Column="1" Classes="primary"
+                  Command="{Binding RefreshNowCommand}" VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal" Spacing="8">
+              <PathIcon Data="{StaticResource IconRefreshGeometry}" Width="15" Height="15" Foreground="White" />
+              <TextBlock Text="Refresh" VerticalAlignment="Center" />
+            </StackPanel>
+          </Button>
+        </Grid>
+        <Border Grid.Row="1" Classes="card groupCard" Padding="0">
+          <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <ItemsControl ItemsSource="{Binding AllLogs}">
+              <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                  <Border Classes="logRow" DoubleTapped="LogRow_DoubleTapped" ToolTip.Tip="Double-click to inspect the log and collect service diagnostics">
+                    <Grid ColumnDefinitions="155,70,110,*" Margin="16,6">
+                      <TextBlock Grid.Column="0" Text="{Binding TimestampText}"
+                                 Foreground="{DynamicResource TextSecondaryBrush}" FontFamily="{DynamicResource AppMonoFontFamily}" FontSize="12" />
+                      <TextBlock Grid.Column="1" Text="{Binding Level}" Foreground="{Binding LevelBrush}"
+                                 FontWeight="SemiBold" FontFamily="{DynamicResource AppMonoFontFamily}" FontSize="12" />
+                      <TextBlock Grid.Column="2" Text="{Binding Component}"
+                                 Foreground="{DynamicResource TextSecondaryBrush}" FontFamily="{DynamicResource AppMonoFontFamily}" FontSize="12"
+                                 TextTrimming="CharacterEllipsis" />
+                      <TextBlock Grid.Column="3" Text="{Binding Message}"
+                                 Foreground="{DynamicResource TextPrimaryBrush}" TextWrapping="Wrap"
+                                 FontFamily="{DynamicResource AppMonoFontFamily}" FontSize="12" />
+                    </Grid>
+                  </Border>
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+            </ItemsControl>
+          </ScrollViewer>
+        </Border>
+      </Grid>
+
+      <!-- Overlay toast. It never participates in layout and auto-dismisses from the view model. -->
+      <Border IsVisible="{Binding HasStatusMessage}"
+              ZIndex="100"
+              HorizontalAlignment="Right"
+              VerticalAlignment="Top"
+              MaxWidth="460"
+              Margin="20"
+              Padding="12,10"
+              CornerRadius="10"
+              Background="{Binding StatusBackgroundBrush}"
+              BorderBrush="{Binding StatusBorderBrush}"
+              BorderThickness="1">
+        <Grid ColumnDefinitions="Auto,*,Auto">
+          <Border Width="28" Height="28" CornerRadius="14" Background="#2FFFFFFF" VerticalAlignment="Center">
+            <TextBlock Text="{Binding StatusIcon}" Foreground="White" FontSize="15" FontWeight="Bold"
+                       HorizontalAlignment="Center" VerticalAlignment="Center" />
+          </Border>
+          <TextBlock Grid.Column="1" Text="{Binding StatusMessage}" Foreground="White"
+                     TextWrapping="Wrap" VerticalAlignment="Center" Margin="10,0" />
+          <Button Grid.Column="2" Classes="toastClose" Content="×" Command="{Binding ClearStatusCommand}"
+                  VerticalAlignment="Center" />
+        </Grid>
+      </Border>
+    </Grid>
+  </Grid>
+</Window>

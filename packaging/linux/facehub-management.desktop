@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=FaceHub Management
+Comment=Monitor and manage Nginx, FaceHub, and MongoDB services
+Exec=/opt/facehub-management/desktop/FaceHubManagement.Desktop
+Icon=facehub-management
+Terminal=false
+Categories=System;Monitor;
+StartupNotify=true
+StartupWMClass=FaceHubManagement.Desktop

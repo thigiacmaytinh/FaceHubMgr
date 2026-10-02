@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>12.0</LangVersion>
+    <AssemblyName>FaceHubManagement.Agent</AssemblyName>
+    <RootNamespace>FaceHubManagement.Agent</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FaceHubManagement.Core\FaceHubManagement.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\config\agentsettings.json" Link="agentsettings.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,62 @@
+{
+  "services": [
+    {
+      "id": "nginx",
+      "displayName": "Nginx",
+      "description": "Web server and reverse proxy",
+      "windowsServiceName": "nginx",
+      "linuxUnitName": "nginx.service",
+      "ports": [
+        80,
+        443
+      ]
+    },
+    {
+      "id": "facehub",
+      "displayName": "FaceHub",
+      "description": "Face recognition and management platform",
+      "windowsServiceName": "FaceHub",
+      "linuxUnitName": "facehub.service",
+      "ports": [
+        8000
+      ]
+    },
+    {
+      "id": "mongodb",
+      "displayName": "MongoDB",
+      "description": "MongoDB database service",
+      "windowsServiceName": "MongoDB",
+      "linuxUnitName": "mongod.service",
+      "ports": [
+        27017
+      ]
+    }
+  ],
+  "ipc": {
+    "windowsPipeName": "FaceHubManagement.Agent",
+    "linuxSocketPath": "/run/facehub-management/agent.sock"
+  },
+  "logs": {
+    "directory": null,
+    "maxFileBytes": 5242880,
+    "retainedFiles": 5
+  },
+  "ports": [
+    {
+      "port": 80,
+      "name": "HTTP"
+    },
+    {
+      "port": 443,
+      "name": "HTTPS"
+    },
+    {
+      "port": 8000,
+      "name": "FaceHub"
+    },
+    {
+      "port": 27017,
+      "name": "MongoDB"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="FaceHubManagement.Desktop.Views.AddPortDialog"
+        Title="Add Firewall Port"
+        Width="430"
+        Height="320"
+        CanResize="False"
+        WindowStartupLocation="CenterOwner"
+        ShowInTaskbar="False">
+  <Grid Margin="24" RowDefinitions="Auto,Auto,Auto,Auto,Auto,*" RowSpacing="10">
+    <TextBlock Grid.Row="0" Text="Add Firewall Port" FontSize="21" FontWeight="SemiBold"
+               Foreground="{DynamicResource TextPrimaryBrush}" />
+    <TextBlock Grid.Row="1" Text="Add a TCP port to the management list. This does not open the firewall automatically."
+               Classes="secondary" TextWrapping="Wrap" Margin="0,0,0,6" />
+
+    <Grid Grid.Row="2" ColumnDefinitions="92,*" Margin="0,4,0,0">
+      <TextBlock Text="Port" VerticalAlignment="Center" />
+      <TextBox x:Name="PortTextBox" Grid.Column="1" Watermark="1 - 65535" />
+    </Grid>
+
+    <Grid Grid.Row="3" ColumnDefinitions="92,*">
+      <TextBlock Text="Name" VerticalAlignment="Center" />
+      <TextBox x:Name="NameTextBox" Grid.Column="1" Watermark="Optional, e.g. Web API" />
+    </Grid>
+
+    <TextBlock x:Name="ErrorTextBlock" Grid.Row="4" Foreground="{DynamicResource DangerBrush}"
+               IsVisible="False" TextWrapping="Wrap" />
+
+    <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Right"
+                VerticalAlignment="Bottom" Spacing="10" Margin="0,10,0,0">
+      <Button Content="Cancel" Click="Cancel_Click" />
+      <Button Classes="primary" Content="Add Port" Click="Add_Click" />
+    </StackPanel>
+  </Grid>
+</Window>

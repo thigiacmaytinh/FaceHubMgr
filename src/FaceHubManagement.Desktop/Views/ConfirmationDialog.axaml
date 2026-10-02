@@ -1,0 +1,21 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="FaceHubManagement.Desktop.Views.ConfirmationDialog"
+        Title="Confirm"
+        Width="460"
+        Height="260"
+        CanResize="False"
+        WindowStartupLocation="CenterOwner"
+        ShowInTaskbar="False">
+  <Grid Margin="24" RowDefinitions="Auto,Auto,*,Auto" RowSpacing="12">
+    <TextBlock Grid.Row="0" Text="{Binding TitleText}" FontSize="21" FontWeight="SemiBold"
+               Foreground="{DynamicResource TextPrimaryBrush}" />
+    <TextBlock Grid.Row="1" Text="{Binding MessageText}" TextWrapping="Wrap"
+               Foreground="{DynamicResource TextPrimaryBrush}" />
+    <TextBlock Grid.Row="2" Text="{Binding DetailText}" TextWrapping="Wrap" Classes="secondary" />
+    <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="10">
+      <Button Content="Cancel" Click="Cancel_Click" />
+      <Button Classes="danger" Content="Disable" Click="Confirm_Click" />
+    </StackPanel>
+  </Grid>
+</Window>
